@@ -36,10 +36,12 @@ public class DiamondWorldBorder implements ModInitializer {
 					|| !border.canCollide(entity, entity.getBoundingBox()))
 				continue;
 
-			item.getStack().decrement(1);
+			int diamonds = item.getStack().getCount();
+			item.getStack().decrement(diamonds);
 
 			double size = border.getSize();
-			border.interpolateSize(size, size + 1.0, 10 * 1000);
+			long timePerDiamond = 10 * 1000;
+			border.interpolateSize(size, size + diamonds,  diamonds * timePerDiamond);
 		}
 	}
 }
