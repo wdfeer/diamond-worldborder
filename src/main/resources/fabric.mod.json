@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "diamond_worldborder",
+	"version": "${version}",
+	"name": "Diamond World Border",
+	"description": "Throw diamonds at the world border to increase it!",
+	"authors": [
+		"wdfeer"
+	],
+	"contact": {
+		"homepage": "https://github.com/wdfeer/diamond-worldborder",
+		"sources": "https://github.com/wdfeer/diamond-worldborder"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/diamond_worldborder/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"org.wdfeer.diamond_worldborder.DiamondWorldBorder"
+		]
+	},
+	"mixins": [
+		"diamond_worldborder.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
