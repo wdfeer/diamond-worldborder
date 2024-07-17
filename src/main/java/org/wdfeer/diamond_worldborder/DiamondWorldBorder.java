@@ -26,7 +26,8 @@ public class DiamondWorldBorder implements ModInitializer {
 		if (world.getTime() % 10 != 0) // Only run every 10 ticks
 			return;
 
-		WorldBorder border = world.getWorldBorder();
+		// world.getWorldBorder() doesn't function properly in nether, end
+		WorldBorder border = world.getServer().getOverworld().getWorldBorder();
 		if (border.getStage() == WorldBorderStage.GROWING)
 			return;
 
