@@ -1,0 +1,5 @@
+{
+  "diamond_worldborder.midnightconfig.title": "Diamond World Border",
+  "diamond_worldborder.midnightconfig.widthPerDiamond": "World Border width per diamond",
+  "diamond_worldborder.midnightconfig.timePerDiamondSeconds": "Time to increase border per diamond"
+}
