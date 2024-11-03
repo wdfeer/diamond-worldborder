@@ -6,8 +6,10 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.border.WorldBorderStage;
 import org.slf4j.Logger;
@@ -37,18 +39,24 @@ public class DiamondWorldBorder implements ModInitializer {
 			return;
 
 		for (Entity entity : world.iterateEntities()){
-			if (!(entity instanceof ItemEntity item)
-					|| !item.getStack().isOf(Items.DIAMOND)
+			if (!(entity instanceof ItemEntity itemEntity)
+					|| !matchItemId(itemEntity, ModConfig.diamondId)
 					|| !border.canCollide(entity, entity.getBoundingBox()))
 				continue;
 
-			int diamonds = item.getStack().getCount();
-			item.getStack().decrement(diamonds);
+			int diamonds = itemEntity.getStack().getCount();
+			itemEntity.getStack().decrement(diamonds);
 
 			double size = border.getSize();
 			double newSize = size + diamonds * ModConfig.widthPerDiamond;
 			long timePerDiamond = (long)(ModConfig.timePerDiamondSeconds * 1e3);
 			border.interpolateSize(size, newSize,  diamonds * timePerDiamond);
 		}
+	}
+
+	private Boolean matchItemId(ItemEntity itemEntity, Identifier id) {
+		ItemStack itemStack = itemEntity.getStack();
+		Identifier itemId = Registries.ITEM.getId(itemStack.getItem());
+		return id.equals(itemId);
 	}
 }
