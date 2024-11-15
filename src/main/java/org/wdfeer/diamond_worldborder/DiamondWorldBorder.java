@@ -40,7 +40,7 @@ public class DiamondWorldBorder implements ModInitializer {
 
 		for (Entity entity : world.iterateEntities()){
 			if (!(entity instanceof ItemEntity itemEntity)
-					|| !matchItemId(itemEntity, ModConfig.diamondId)
+					|| !matchItemId(itemEntity, Identifier.of(ModConfig.diamondId))
 					|| !border.canCollide(entity, entity.getBoundingBox()))
 				continue;
 
