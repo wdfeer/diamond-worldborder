@@ -22,8 +22,8 @@ public class DiamondWorldBorder implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		config = ModConfig.loadConfig();
 		ServerTickEvents.END_WORLD_TICK.register(this::postWorldTick);
-
 		LOGGER.info("Diamond World Border initialized!");
 	}
 
@@ -38,7 +38,7 @@ public class DiamondWorldBorder implements ModInitializer {
 
 		for (Entity entity : world.iterateEntities()){
 			if (!(entity instanceof ItemEntity itemEntity)
-					|| !matchItemId(itemEntity, Identifier.of(ModConfig.diamondId))
+					|| !matchItemId(itemEntity, Identifier.of(config.diamondId()))
 					|| !border.canCollide(entity, entity.getBoundingBox()))
 				continue;
 
@@ -46,8 +46,8 @@ public class DiamondWorldBorder implements ModInitializer {
 			itemEntity.getStack().decrement(diamonds);
 
 			double size = border.getSize();
-			double newSize = size + diamonds * ModConfig.widthPerDiamond;
-			long timePerDiamond = (long)(ModConfig.timePerDiamondSeconds * 1e3);
+			double newSize = size + diamonds * config.widthPerDiamond();
+			long timePerDiamond = (long)(config.timePerDiamondSeconds() * 1e3);
 			border.interpolateSize(size, newSize,  diamonds * timePerDiamond);
 		}
 	}
