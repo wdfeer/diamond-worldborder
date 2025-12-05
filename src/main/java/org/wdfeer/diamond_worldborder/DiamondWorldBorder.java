@@ -1,6 +1,5 @@
 package org.wdfeer.diamond_worldborder;
 
-import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -14,17 +13,16 @@ import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.border.WorldBorderStage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wdfeer.diamond_worldborder.config.ModConfig;
 
 public class DiamondWorldBorder implements ModInitializer {
 	public static final String MOD_ID = "diamond_worldborder";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	private static ModConfig config;
+
 	@Override
 	public void onInitialize() {
 		ServerTickEvents.END_WORLD_TICK.register(this::postWorldTick);
-
-		MidnightConfig.init(MOD_ID, ModConfig.class);
 
 		LOGGER.info("Diamond World Border initialized!");
 	}
