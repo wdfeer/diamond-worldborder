@@ -22,7 +22,7 @@ public class DiamondWorldBorder implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		config = ModConfig.loadConfig();
+		config = ModConfig.init();
 		ServerTickEvents.END_WORLD_TICK.register(this::postWorldTick);
 		LOGGER.info("Diamond World Border initialized!");
 	}
