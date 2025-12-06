@@ -42,7 +42,7 @@ public class DiamondWorldBorder implements ModInitializer {
 
 			ConfigEntry entry = null;
 			for (ConfigEntry e : config.entries()) {
-				if (matchItemId(itemEntity, Identifier.of(e.diamondId()))) {
+				if (matchItemId(itemEntity, new Identifier(e.diamondId()))) {
 					entry = e;
 				}
 			}
