@@ -8,9 +8,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public record ModConfig(String diamondId, double widthPerDiamond, double timePerDiamondSeconds) {
-    public static final ModConfig DEFAULT = new ModConfig("minecraft:diamond", 1, 10);
+public record ModConfig(ArrayList<ConfigEntry> entries) {
+    public static final ModConfig DEFAULT = new ModConfig(new ArrayList<>(Collections.singleton(ConfigEntry.DEFAULT)));
 
     private static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve("diamond_worldborder.json");
 

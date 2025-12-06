@@ -37,17 +37,23 @@ public class DiamondWorldBorder implements ModInitializer {
 			return;
 
 		for (Entity entity : world.iterateEntities()){
-			if (!(entity instanceof ItemEntity itemEntity)
-					|| !matchItemId(itemEntity, Identifier.of(config.diamondId()))
-					|| !border.canCollide(entity, entity.getBoundingBox()))
+			if (!(entity instanceof ItemEntity itemEntity) || !border.canCollide(entity, entity.getBoundingBox()))
 				continue;
+
+			ConfigEntry entry = null;
+			for (ConfigEntry e : config.entries()) {
+				if (matchItemId(itemEntity, Identifier.of(e.diamondId()))) {
+					entry = e;
+				}
+			}
+			if (entry == null) continue;
 
 			int diamonds = itemEntity.getStack().getCount();
 			itemEntity.getStack().decrement(diamonds);
 
 			double size = border.getSize();
-			double newSize = size + diamonds * config.widthPerDiamond();
-			long timePerDiamond = (long)(config.timePerDiamondSeconds() * 1e3);
+			double newSize = size + diamonds * entry.widthPerDiamond();
+			long timePerDiamond = (long)(entry.timePerDiamondSeconds() * 1e3);
 			border.interpolateSize(size, newSize,  diamonds * timePerDiamond);
 		}
 	}
