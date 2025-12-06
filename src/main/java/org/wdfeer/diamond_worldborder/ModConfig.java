@@ -1,6 +1,7 @@
 package org.wdfeer.diamond_worldborder;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -47,7 +48,7 @@ public record ModConfig(ArrayList<ConfigEntry> entries) {
     public static void saveConfig(ModConfig config) throws IOException {
         var file = configPath.toFile();
         try (var writer = new FileWriter(file)) {
-            var gson = new Gson();
+            var gson = new GsonBuilder().setPrettyPrinting().create();
             writer.write(gson.toJson(config));
         }
     }
